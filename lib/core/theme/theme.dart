@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FacebookTheme {
-  static const Color fbPrimary = Color(0xFF1877F2);
+  static const Color fbPrimary = Color(0xff0866ff);
   static const Color fbBackgroundLight = Colors.white;
   static const Color fbBackgroundDark = Color(0xFF18191A);
   static const Color fbSurfaceLight = Colors.white;
@@ -17,7 +17,6 @@ class FacebookTheme {
     brightness: Brightness.light,
     scaffoldBackgroundColor: fbBackgroundLight,
     appBarTheme: const AppBarTheme(
-      backgroundColor: fbPrimary,
       foregroundColor: Colors.white,
       elevation: 0,
       titleTextStyle: TextStyle(
@@ -25,10 +24,39 @@ class FacebookTheme {
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.black),
     ),
+    inputDecorationTheme: const InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderSide: BorderSide(
+          color: Color(0xFF65676B), // Facebook blue
+          width: 2,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderSide: BorderSide(
+          color: Color.fromARGB(255, 192, 195, 201), // Gray for unfocused state
+          width: 1.5,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderSide: BorderSide(color: Color(0xFF65676B), width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderSide: BorderSide(color: Colors.red, width: 2),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        borderSide: BorderSide(color: Colors.red, width: 2),
+      ),
+    ),
+
     colorScheme: const ColorScheme.light(
-      primary: fbPrimary,
+      primary: fbSecondaryTextLight,
       secondary: fbPrimary,
       surface: fbSurfaceLight,
       background: fbBackgroundLight,
@@ -46,9 +74,13 @@ class FacebookTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(50),
         backgroundColor: fbPrimary,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: BorderSide(color: fbPrimary),
+        ),
       ),
     ),
   );

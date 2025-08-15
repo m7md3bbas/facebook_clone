@@ -1,4 +1,5 @@
 import 'package:facebook_clone/core/routes/app_routes.dart';
+import 'package:facebook_clone/core/theme/theme.dart';
 import 'package:facebook_clone/core/theme/theme_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,8 @@ class FaceBookClone extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routerConfig: AppRoutes.goRouter,
             themeMode: state,
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: FacebookTheme.light,
+            darkTheme: FacebookTheme.dark,
           );
         },
       ),
