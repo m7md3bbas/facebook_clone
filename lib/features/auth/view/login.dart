@@ -1,9 +1,11 @@
+import 'package:facebook_clone/core/routes/app_routes.dart';
 import 'package:facebook_clone/core/widgets/buttons/custom_eleveted_button.dart';
 import 'package:facebook_clone/core/widgets/buttons/custom_translation_button.dart';
 import 'package:facebook_clone/core/widgets/iconButton/custom_icon_button.dart';
 import 'package:facebook_clone/core/widgets/textformfield/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -31,7 +33,7 @@ class _LoginState extends State<Login> {
         key: _formKey,
         autovalidateMode: _autovalidateMode,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,14 +56,14 @@ class _LoginState extends State<Login> {
                     hintText: 'Password',
                   ),
                   CustomElevetedButton(title: 'Login', onPressed: () {}),
-
                   TextButton(onPressed: () {}, child: Text('Forgot Password?')),
                 ],
               ),
               CustomElevetedButton(
                 isCreateAccount: true,
                 title: 'Create New Account',
-                onPressed: () {},
+                onPressed: () =>
+                    GoRouter.of(context).push(AppRouteNames.register),
               ),
             ],
           ),

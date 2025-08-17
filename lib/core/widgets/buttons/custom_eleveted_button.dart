@@ -23,7 +23,7 @@ class CustomElevetedButton extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: isCreateAccount ? FacebookTheme.fbPrimary : Colors.white,
+          color: isCreateAccount ? Color(0xFF65676B) : Colors.white,
         ),
       ),
     );

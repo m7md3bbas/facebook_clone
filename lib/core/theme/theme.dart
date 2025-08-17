@@ -68,12 +68,32 @@ class FacebookTheme {
     ),
     dividerTheme: const DividerThemeData(color: fbDividerLight),
     textTheme: const TextTheme(
+      displaySmall: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       bodyLarge: TextStyle(fontSize: 16, color: fbTextLight),
       bodyMedium: TextStyle(fontSize: 14, color: fbTextLight),
       bodySmall: TextStyle(fontSize: 12, color: fbSecondaryTextLight),
     ),
+
+    checkboxTheme: CheckboxThemeData(
+      shape: const CircleBorder(
+        side: BorderSide(
+          color: Color(0xFF65676B), // Facebook blue
+          width: 2,
+        ),
+      ),
+      side: const BorderSide(
+        color: Color(0xFF65676B), // Facebook blue
+        width: 2,
+      ),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+      fillColor: WidgetStateProperty.all(Colors.white),
+      checkColor: WidgetStateProperty.all(fbPrimary),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        textStyle: const TextStyle(color: Color(0xFF65676B), fontSize: 16),
         minimumSize: Size.fromHeight(50),
         backgroundColor: fbPrimary,
         foregroundColor: Colors.white,

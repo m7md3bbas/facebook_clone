@@ -7,11 +7,13 @@ class CustomTextFormField extends StatelessWidget {
     this.isObsecure,
     required this.hintText,
     this.validator,
+    this.suffixIcon,
   });
   final TextEditingController controller;
   final bool? isObsecure;
   final String hintText;
   final String? Function(String?)? validator;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: isObsecure == null ? false : isObsecure!,
       validator: validator,
-      decoration: InputDecoration(hintText: hintText),
+      decoration: InputDecoration(hintText: hintText, suffixIcon: suffixIcon),
     );
   }
 }
