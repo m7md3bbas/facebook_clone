@@ -1,4 +1,3 @@
-import 'package:facebook_clone/features/auth/view/check.dart';
 import 'package:facebook_clone/features/auth/view/login.dart';
 import 'package:facebook_clone/features/auth/view/registeration/birthday_register.dart';
 import 'package:facebook_clone/features/auth/view/registeration/email_register.dart';
@@ -8,11 +7,12 @@ import 'package:facebook_clone/features/auth/view/registeration/password_registe
 import 'package:facebook_clone/features/auth/view/register.dart';
 import 'package:facebook_clone/features/auth/view/saved_accounts.dart';
 import 'package:facebook_clone/features/auth/view/registeration/saving_login.dart';
+import 'package:facebook_clone/features/auth/view/wrapperAuth.dart';
+import 'package:facebook_clone/features/home/view/home.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 abstract class AppRouteNames {
-  static String check = '/';
+  static String initial = '/initial';
   static String login = '/login';
   static String register = '/register';
   static String fullnameRegister = '/fullname-register';
@@ -30,8 +30,12 @@ abstract class AppRouteNames {
 
 class AppRoutes {
   static GoRouter goRouter = GoRouter(
-    initialLocation: AppRouteNames.accounts,
+    initialLocation: AppRouteNames.initial,
     routes: [
+      GoRoute(
+        path: AppRouteNames.initial,
+        builder: (context, state) => const AuthWrapper(),
+      ),
       GoRoute(
         path: AppRouteNames.accounts,
         builder: (context, state) => const SavedAccounts(),
@@ -56,10 +60,7 @@ class AppRoutes {
         path: AppRouteNames.birthdayRegister,
         builder: (context, state) => const BirthdayRegister(),
       ),
-      GoRoute(
-        path: AppRouteNames.check,
-        builder: (context, state) => const Check(),
-      ),
+
       GoRoute(
         path: AppRouteNames.register,
         builder: (context, state) => const Register(),
@@ -72,6 +73,8 @@ class AppRoutes {
         path: AppRouteNames.login,
         builder: (context, state) => const Login(),
       ),
+
+      GoRoute(path: AppRouteNames.home, builder: (context, state) => Home()),
     ],
   );
 }

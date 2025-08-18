@@ -3,7 +3,10 @@ import 'package:facebook_clone/core/widgets/buttons/custom_eleveted_button.dart'
 import 'package:facebook_clone/core/widgets/buttons/custom_translation_button.dart';
 import 'package:facebook_clone/core/widgets/iconButton/custom_icon_button.dart';
 import 'package:facebook_clone/core/widgets/textformfield/custom_text_form_field.dart';
+import 'package:facebook_clone/core/widgets/toastmessage/flutter_toast.dart';
+import 'package:facebook_clone/features/auth/viewModel/saved_accounts_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,11 +25,12 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final login = context.watch<SavedAccountsViewModel>();
     return Scaffold(
       appBar: AppBar(
         leading: CustomIconButton(
           icon: FontAwesomeIcons.arrowLeft,
-          onPressed: () {},
+          onPressed: () => GoRouter.of(context).pop(),
         ),
       ),
       body: Form(
@@ -55,7 +59,26 @@ class _LoginState extends State<Login> {
                     isObsecure: true,
                     hintText: 'Password',
                   ),
-                  CustomElevetedButton(title: 'Login', onPressed: () {}),
+                  login.isLoading
+                      ? CircularProgressIndicator()
+                      : CustomElevetedButton(
+                          title: 'Login',
+                          onPressed: () async {
+                            if (login.error != null) {
+                              CustomFlutterToast.showErrorToast(login.error!);
+                              return;
+                            }
+                            final logined = await login.loginWithPassword(
+                              email: _emailController.text.trim(),
+                              passsword: _passwordController.text,
+                            );
+                            if (logined) {
+                              GoRouter.of(context).go(AppRouteNames.home);
+                            } else {
+                              CustomFlutterToast.showErrorToast(login.error!);
+                            }
+                          },
+                        ),
                   TextButton(onPressed: () {}, child: Text('Forgot Password?')),
                 ],
               ),

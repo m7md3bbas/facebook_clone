@@ -66,6 +66,7 @@ class _EmailRegisterState extends State<EmailRegister> {
                     email.setEmail(emailController.text);
                     if (email.error != null) {
                       CustomFlutterToast.showErrorToast(email.error!);
+                      return;
                     }
                     GoRouter.of(context).push(AppRouteNames.passwordRegister);
                   } else {

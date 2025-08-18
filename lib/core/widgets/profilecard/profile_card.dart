@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+  const ProfileCard({super.key, required this.image, required this.name});
+  final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +18,14 @@ class ProfileCard extends StatelessWidget {
 
         child: Center(
           child: ListTile(
-            leading: CircleAvatar(
-              radius: 35,
-              backgroundImage: CachedNetworkImageProvider(""),
-            ),
+            leading: image.isEmpty
+                ? CircleAvatar(radius: 35)
+                : CircleAvatar(
+                    radius: 35,
+                    backgroundImage: CachedNetworkImageProvider(image),
+                  ),
 
-            title: Text(
-              "mohamed",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            title: Text(name, style: Theme.of(context).textTheme.titleLarge),
             trailing: CustomIconButton(
               icon: FontAwesomeIcons.arrowRight,
               onPressed: () {},

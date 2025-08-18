@@ -1,15 +1,15 @@
 import 'package:facebook_clone/core/storage/secure_storage.dart';
+import 'package:facebook_clone/features/auth/model/saved_account.dart';
 import 'package:facebook_clone/features/auth/model/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class RegisterService {
-  Future<void> register({required UserModel user});
+  Future<void> register({required UserModel user, bool saveInfo = false});
 }
 
 class RegisterServiceImpl implements RegisterService {
   final SupabaseClient supabase;
-  final SecureStorage secureStorage;
-  RegisterServiceImpl({required this.supabase, required this.secureStorage});
+  RegisterServiceImpl({required this.supabase});
 
   @override
   Future<void> register({
@@ -22,19 +22,6 @@ class RegisterServiceImpl implements RegisterService {
         password: user.password!,
       );
       final userId = response.user?.id;
-      final accessToken = response.session?.accessToken;
-      final refreshToken = response.session?.refreshToken;
-
-      if (saveInfo) {
-        secureStorage.writeSecureData(
-          SecureStorageKeys.accessToken,
-          accessToken!,
-        );
-        secureStorage.writeSecureData(
-          SecureStorageKeys.refreshToken,
-          refreshToken!,
-        );
-      }
 
       if (userId != null) {
         await supabase
@@ -46,6 +33,13 @@ class RegisterServiceImpl implements RegisterService {
               'gender': user.gender,
             })
             .eq('id', userId);
+      }
+      final refreshToken = response.session?.refreshToken;
+      if (saveInfo) {
+        SavedAccountsManager.saveAccount(
+          SavedLoginAccount(userId: userId!, name: user.fullName!),
+          refreshToken!,
+        );
       }
     } on AuthException catch (e) {
       throw Exception(e.message);

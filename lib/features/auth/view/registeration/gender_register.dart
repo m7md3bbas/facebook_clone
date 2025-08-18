@@ -81,6 +81,7 @@ class GenderRegister extends StatelessWidget {
                           gender.setGender(gender.selectedGender!);
                           if (gender.error != null) {
                             Fluttertoast.showToast(msg: gender.error!);
+                            return;
                           }
                           GoRouter.of(
                             context,

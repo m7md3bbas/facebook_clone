@@ -42,6 +42,7 @@ dependencies:
   hydrated_bloc: ^10.1.1
   path_provider: ^2.1.5
   provider: ^6.1.5
+  shared_preferences: ^2.5.3
   supabase_flutter: ^2.9.1
 
 dev_dependencies:

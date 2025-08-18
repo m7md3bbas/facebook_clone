@@ -46,7 +46,7 @@ class _PasswordRegisterState extends State<PasswordRegister> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Text(
-                "Create a password with at least 6 letters or numbers. it should be something others can't guess",
+                "Create a password with at least 6 letters inclouding upper, lower, number and sympols. it should be something others can't guess",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               CustomTextFormField(
@@ -54,12 +54,12 @@ class _PasswordRegisterState extends State<PasswordRegister> {
                 controller: _password,
                 hintText: "Password",
                 suffixIcon: CustomIconButton(
-                  icon: password.isShow
+                  icon: !password.isShow
                       ? FontAwesomeIcons.eyeSlash
                       : FontAwesomeIcons.eye,
                   onPressed: () => password.togglePassword(),
                 ),
-                isObsecure: password.isShow,
+                isObsecure: !password.isShow,
               ),
               Consumer(
                 builder: (context, value, child) => password.isLoading
@@ -76,7 +76,9 @@ class _PasswordRegisterState extends State<PasswordRegister> {
                               CustomFlutterToast.showErrorToast(
                                 password.error!,
                               );
+                              return;
                             }
+
                             GoRouter.of(context).push(AppRouteNames.saveLogin);
                           } else {
                             setState(() {

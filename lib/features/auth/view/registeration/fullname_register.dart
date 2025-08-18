@@ -88,6 +88,7 @@ class _FullNameRegisterState extends State<FullNameRegister> {
                                 CustomFlutterToast.showErrorToast(
                                   fullname.error!,
                                 );
+                                return;
                               }
                               GoRouter.of(
                                 context,

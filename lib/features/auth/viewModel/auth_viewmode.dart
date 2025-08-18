@@ -19,6 +19,7 @@ class AuthViewModel extends ChangeNotifier {
   String? _selectedGender;
   bool isShow = false;
   bool isCreated = false;
+  bool _saveInfo = false;
 
   //getters
   UserModel get user => userModel;
@@ -26,6 +27,7 @@ class AuthViewModel extends ChangeNotifier {
   String get formattedDate => _formattedDate;
   String? get selectedGender => _selectedGender;
   bool? get isShowPassword => isShow;
+  bool get saveInfo => _saveInfo;
   bool get isCreatedAccount => isCreated;
 
   //password
@@ -153,6 +155,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       userModel = userModel.copyWith(fullName: "$first $last");
+
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -160,6 +163,8 @@ class AuthViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   void setEmail(String email) {
@@ -167,6 +172,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       userModel = userModel.copyWith(email: email);
+
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -174,6 +180,8 @@ class AuthViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   void setPassword(String password) async {
@@ -181,6 +189,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       userModel = userModel.copyWith(password: password);
+
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -188,6 +197,8 @@ class AuthViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   void setGender(String gender) {
@@ -195,6 +206,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       userModel = userModel.copyWith(gender: gender);
+
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -202,6 +214,8 @@ class AuthViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   void setBirthday(String date) {
@@ -209,6 +223,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       userModel = userModel.copyWith(birthday: date);
+
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -216,22 +231,33 @@ class AuthViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+    isLoading = false;
+    notifyListeners();
   }
 
-  void registerUser() async {
+  Future<bool> registerUser({bool saveInfo = false}) async {
     isLoading = true;
+    error = null;
     notifyListeners();
+
     try {
-      Future.delayed(const Duration(seconds: 1));
-      await registerService.register(user: userModel).then((_) {
-        isCreated = true;
+      await Future.delayed(const Duration(seconds: 2));
+      await registerService.register(user: userModel, saveInfo: saveInfo).then((
+        _,
+      ) {
+        _saveInfo = true;
       });
+
+      isCreated = true;
       isLoading = false;
       notifyListeners();
+      return true;
     } catch (e) {
       error = e.toString();
       isLoading = false;
+      _saveInfo = false;
       notifyListeners();
+      return false;
     }
   }
 }

@@ -102,6 +102,7 @@ class _BirthdayRegisterState extends State<BirthdayRegister> {
                               CustomFlutterToast.showErrorToast(
                                 birthday.error!,
                               );
+                              return;
                             }
                             GoRouter.of(
                               context,
